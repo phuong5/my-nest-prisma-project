@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.endOfLine": "auto",
+  "prettier.printWidth": 120,
+  "yaml.format.printWidth": 120,
+  "prettier.trailingComma": "all",
+  "cSpell.words": ["middlewares"]
+}
