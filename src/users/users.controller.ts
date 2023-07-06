@@ -15,10 +15,11 @@ import { UsersService } from './users.service';
 import { User } from '.prisma/client';
 import { UnauthorizedExceptionFilter } from 'src/filters/unauthorized-exception.filter';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { IDPipe } from 'src/pipes/validation.pipe';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Get()
   public findAll(): Promise<User[]> {
@@ -32,6 +33,13 @@ export class UsersController {
   @Get(':id')
   @UseFilters(new UnauthorizedExceptionFilter())
   public findById(@Param('id', ParseIntPipe) id: number): Promise<User | null> {
+    return this.usersService.findById(id);
+  }
+
+  @Get('/pipe/:id')
+  @UseFilters(new UnauthorizedExceptionFilter())
+  public findByIdUseBy(@Param('id', IDPipe) id: number): Promise<User | null> {
+    console.log(99)
     return this.usersService.findById(id);
   }
 

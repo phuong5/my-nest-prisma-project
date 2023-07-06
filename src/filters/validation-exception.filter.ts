@@ -23,6 +23,8 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const status = exception.getStatus();
     const errors = exception.getError();
+
+    console.log("ValidationExceptionFilter trigger");
     response.status(status).json({
       statusCode: status,
       errors,

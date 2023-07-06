@@ -6,4 +6,4 @@ import { UniqueValidator } from 'src/validators/unique-validator.service';
   providers: [UniqueValidator, PrismaService],
   exports: [PrismaService],
 })
-export class SharedModule {}
+export class SharedModule { }
