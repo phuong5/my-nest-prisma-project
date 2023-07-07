@@ -6,8 +6,6 @@ import {
   Delete,
   Body,
   Param,
-  HttpException,
-  HttpStatus,
   UseFilters,
   ParseIntPipe,
 } from '@nestjs/common';
@@ -15,13 +13,16 @@ import { UsersService } from './users.service';
 import { User } from '.prisma/client';
 import { UnauthorizedExceptionFilter } from 'src/filters/unauthorized-exception.filter';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+// import { RolesGuard } from 'src/guards/roles.guard';
 
 @Controller('users')
+// @UseGuards(RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
   public findAll(): Promise<User[]> {
+    console.log('UsersController findAll');
     try {
       return this.usersService.findAll();
     } catch (error) {
@@ -32,7 +33,12 @@ export class UsersController {
   @Get(':id')
   @UseFilters(new UnauthorizedExceptionFilter())
   public findById(@Param('id', ParseIntPipe) id: number): Promise<User | null> {
-    return this.usersService.findById(id);
+    console.log('UsersController findById');
+    try {
+      return this.usersService.findById(id);
+    } catch (error) {
+      throw new HttpExceptionFilter();
+    }
   }
 
   @Post()
