@@ -29,7 +29,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
     };
 
-    console.log('AllExceptionsFilter trigger', httpStatus, ': ', responseBody);
+    console.log('AllExceptionsFilter trigger');
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
   }
