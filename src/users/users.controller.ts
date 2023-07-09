@@ -8,17 +8,21 @@ import {
   Param,
   UseFilters,
   ParseIntPipe,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '.prisma/client';
 import { UnauthorizedExceptionFilter } from 'src/filters/unauthorized-exception.filter';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
 import { IDPipe } from 'src/pipes/validation.pipe';
+import { TransformInterceptor } from 'src/interceptors/transform.interceptor';
 // import { RolesGuard } from 'src/guards/roles.guard';
 
+@UseInterceptors(TransformInterceptor)
 @Controller('users')
 // @UseGuards(RolesGuard)
 export class UsersController {
+
   constructor(private readonly usersService: UsersService) { }
 
   @Get()
